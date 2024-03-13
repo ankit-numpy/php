@@ -1,6 +1,7 @@
 <?php
-
-$db_name = 'mysql:host=hrishimysqlserver.mysql.database.azure.com:3306;dbname=food_db';
+$host = 'hrishimysqlserver.mysql.database.azure.com';
+$dbb_name = 'food_db';
+$db_name ="mysql:host=$host;dbname=$dbb_name";
 $user_name = 'hrishi@hrishimysqlserver';
 $user_password = 'YourStrongPassword!';
 
