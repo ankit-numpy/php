@@ -22,6 +22,8 @@ if(isset($_POST['submit'])){
    $pass = filter_var($pass, FILTER_SANITIZE_STRING);
    $cpass = sha1($_POST['cpass']);
    $cpass = filter_var($cpass, FILTER_SANITIZE_STRING);
+   $add = $_POST['add'];
+   $add = filter_var($add, FILTER_SANITIZE_STRING);
 echo "ready";
    $select_user = $conn->prepare("SELECT * FROM `users` WHERE email = ? OR number = ?");
    $select_user->execute([$email, $number]);
@@ -33,8 +35,8 @@ echo "ready";
       if($pass != $cpass){
          $message[] = 'confirm password not matched!';
       }else{
-         $insert_user = $conn->prepare("INSERT INTO `users`(name, email, number, password) VALUES(?,?,?,?)");
-         $insert_user->execute([$name, $email, $number, $cpass]);
+         $insert_user = $conn->prepare("INSERT INTO `users`(name, email, number, password, address) VALUES(?,?,?,?,?)");
+         $insert_user->execute([$name, $email, $number, $cpass,$add]);
          $select_user = $conn->prepare("SELECT * FROM `users` WHERE email = ? AND password = ?");
          $select_user->execute([$email, $pass]);
          $row = $select_user->fetch(PDO::FETCH_ASSOC);
@@ -79,6 +81,7 @@ echo "ready";
       <input type="number" name="number" required placeholder="enter your number" class="box" min="0" max="9999999999" maxlength="10">
       <input type="password" name="pass" required placeholder="enter your password" class="box" maxlength="50" oninput="this.value = this.value.replace(/\s/g, '')">
       <input type="password" name="cpass" required placeholder="confirm your password" class="box" maxlength="50" oninput="this.value = this.value.replace(/\s/g, '')">
+            <input type="text" name="add" required placeholder="enter your address" class="box" maxlength="50">
       <input type="submit" value="register now" name="submit" class="btn">
       <p>already have an account? <a href="login.php">login now</a></p>
    </form>
