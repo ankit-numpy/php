@@ -6,7 +6,7 @@ $user_name = 'hrishi@hrishimysqlserver';
 $user_password = 'YourStrongPassword!';
 
 $conn = new PDO($db_name, $user_name, $user_password);
-
+echo "connected";
 ?>
 
 
